@@ -1,18 +1,19 @@
 <?php
 include("../Templates/header.php");
 require_once '../Templates/login.php';
-$con=mysqli_connect($host,$un,$pw,$db); //CS340km
-$con2=mysqli_connect($host,$un,$pw, $db04);//hw04 db
+$dumpfile = "/path/to/dump";
+$con=mysqli_connect($host,$un,$pw,$db); //connect to DB 
 
-if(isset($_POST['backupfromscript']))
+
+if(isset($_POST['backupfromscript']))//check if button was pressed on calling page
 {
-  if(!file_exists('./CS340dump.sql'))
+  if(!file_exists($dumpfile))
   {
     echo "cannot find file";
   }//if
   else
   {
-    $source = './CS340dump.sql';
+    $source = $dumpfile;
     $sql  = "DROP DATABASE IF EXISTS $db;";
     $sql .= "Create DATABASE $db;";
     $sql .= file_get_contents($source);
